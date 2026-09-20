@@ -104,12 +104,13 @@ export const runAgent = createServerFn({ method: "POST" })
     if (!apiKey) throw new Error("Clé IA manquante.");
     const supabase = context.supabase;
 
-    const { data: conv } = await supabase
+    const { data: convRow } = await supabase
       .from("conversations")
       .select("*")
       .eq("id", data.conversationId)
       .single();
-    if (!conv) throw new Error("Conversation introuvable.");
+    if (!convRow) throw new Error("Conversation introuvable.");
+    const conv: any = convRow;
 
     const { data: settings } = await supabase
       .from("odoo_settings")
