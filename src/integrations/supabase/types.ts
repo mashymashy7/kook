@@ -14,7 +14,175 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      activity_log: {
+        Row: {
+          action: string
+          conversation_id: string | null
+          created_at: string
+          detail: string | null
+          id: string
+          success: boolean
+          user_id: string
+        }
+        Insert: {
+          action: string
+          conversation_id?: string | null
+          created_at?: string
+          detail?: string | null
+          id?: string
+          success?: boolean
+          user_id: string
+        }
+        Update: {
+          action?: string
+          conversation_id?: string | null
+          created_at?: string
+          detail?: string | null
+          id?: string
+          success?: boolean
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "activity_log_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      conversations: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          last_message_at: string | null
+          lead_name: string
+          odoo_lead_id: number
+          partner_name: string | null
+          stage: string | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          last_message_at?: string | null
+          lead_name: string
+          odoo_lead_id: number
+          partner_name?: string | null
+          stage?: string | null
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          last_message_at?: string | null
+          lead_name?: string
+          odoo_lead_id?: number
+          partner_name?: string | null
+          stage?: string | null
+          status?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          content: string
+          conversation_id: string
+          created_at: string
+          id: string
+          role: string
+          sent_at: string | null
+          subject: string | null
+          user_id: string
+        }
+        Insert: {
+          content: string
+          conversation_id: string
+          created_at?: string
+          id?: string
+          role: string
+          sent_at?: string | null
+          subject?: string | null
+          user_id: string
+        }
+        Update: {
+          content?: string
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          role?: string
+          sent_at?: string | null
+          subject?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      odoo_settings: {
+        Row: {
+          agent_instructions: string | null
+          api_key: string
+          db_name: string
+          sender_name: string | null
+          updated_at: string
+          url: string
+          user_id: string
+          username: string
+        }
+        Insert: {
+          agent_instructions?: string | null
+          api_key: string
+          db_name: string
+          sender_name?: string | null
+          updated_at?: string
+          url: string
+          user_id: string
+          username: string
+        }
+        Update: {
+          agent_instructions?: string | null
+          api_key?: string
+          db_name?: string
+          sender_name?: string | null
+          updated_at?: string
+          url?: string
+          user_id?: string
+          username?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
